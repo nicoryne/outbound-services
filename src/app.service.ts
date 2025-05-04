@@ -8,18 +8,18 @@ export class AppService {
     return 'Hello World!';
   }
 
-  async generatedPdf(text: string): Promise<Buffer> {
+  async generatePdf(text: string): Promise<Buffer> {
     return new Promise((res, reject) => {
       const doc = new PDFDocument();
       const stream = new PassThrough();
-      const chunk: uInt8Array[] = [];
+      const chunks: Uint8Array[] = [];
 
       doc.pipe(stream);
       doc.text(text);
       doc.end();
 
       stream.on('data', chunk => chunks.push(chunk));
-      stream.on('end', () => resolve(Buffer.concat(chunks)));
+      stream.on('end', () => res(Buffer.concat(chunks)));
       stream.on('erorr', err => reject(err));
     })
   }

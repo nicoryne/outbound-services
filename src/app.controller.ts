@@ -13,7 +13,7 @@ export class AppController {
 
   @Post('generate-pdf')
   async generatePdf(@Body('text') text: string, @Res() res: Response) {
-    const pdfBuffer = await this.apiService.generatePdf(text);
+    const pdfBuffer = await this.appService.generatePdf(text);
 
     res.set({
       'Content-Type': 'application/pdf',
